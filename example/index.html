@@ -1,0 +1,113 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script language="javascript" src="../dist/bruker-tools.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body onLoad="document.getElementById('barcode').focus()">
+    <h1><span id="instrument"></span></h1>
+    <form id="form">
+      <div class="flex" class="big">
+        <div class="flex-2 big">
+          Scan the barcode:
+          <input
+            type="text"
+            autofocus
+            id="barcode"
+            name="scan"
+            onkeyup="splitBarcode(this.value)"
+          /><br />
+        </div>
+        <div class="flex-2 big">
+          User:
+          <input
+            type="text"
+            readonly
+            name="user"
+            id="user"
+            value="lpatiny"
+          /><br />
+          Code:
+          <input
+            type="text"
+            readonly
+            name="code"
+            id="code"
+            value="LP123"
+          /><br />
+          Batch:
+          <input type="text" readonly name="batch" id="batch" value="F1" />
+        </div>
+      </div>
+      <hr />
+      <div class="big">
+        Holder: <input type="number" name="holder" value="5" />
+      </div>
+      <hr />
+      <div class="big">
+        Solvent:
+        <span id="solventSpan"> </span>
+        <button
+          onclick="document.getElementById('solvent').value='CDCl3';return false;"
+        >
+          CDCl3</button
+        ><button
+          onclick="document.getElementById('solvent').value='DMSO';return false;"
+        >
+          DMSO
+        </button>
+      </div>
+
+      <hr />
+      <div class="flex">
+        <div class="flex-3">
+          <h2>Individual experiments</h2>
+          <span
+            id="experimentsElement"
+            onclick="$('#compositeElement input[type=radio]').prop('checked', false);"
+          ></span>
+        </div>
+        <div class="flex-3">
+          <h2>Set of experiments</h2>
+          <span
+            id="compositeElement"
+            onclick="$('#experimentsElement input[type=checkbox]').prop('checked', false);"
+          ></span>
+        </div>
+        <div class="flex-3">
+          <div id="errors"></div>
+          <textarea id="iconText" cols="60" rows="20"> </textarea>
+          <button id="start" onclick="icon.start(); return false;">
+            Start experiment
+          </button>
+        </div>
+      </div>
+    </form>
+  </body>
+  <script>
+    // general code
+    async function init() {
+      let prefs = await (await fetch('./config.json')).json();
+      icon = new BrukerTools.Icon(prefs, {
+        startID: 'start',
+        instrumentID: 'instrument',
+        formID: 'form',
+        iconTextID: 'iconText',
+        errorsID: 'errors'
+      });
+      icon.createSolventSelect('solventSpan');
+      icon.createCompositeRadios('compositeElement');
+      icon.createExperimentCheckboxes('experimentsElement');
+      icon.monitorForm();
+    }
+    init();
+
+    // specific code
+    function splitBarcode(value) {
+      let parts = value.split('_');
+      document.getElementById('user').value = parts[0];
+      document.getElementById('code').value = parts[1];
+      document.getElementById('batch').value = parts.slice(2).join('_');
+    }
+  </script>
+</html>
