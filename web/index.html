@@ -86,7 +86,7 @@
 
     async function init() {
       let spectro = getQueryVariable('spectro');
-      let config = instrument ? spectro + '.json' : 'config.json';
+      let config = spectro ? spectro + '.json' : 'config.json';
       let prefs = await (await fetch(config)).json();
       icon = new BrukerTools.Icon(prefs, {
         startID: 'start',
