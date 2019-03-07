@@ -50,6 +50,10 @@ th {
   font-size: 36px;
 }
 
+#confirm {
+  font-size: 24px;
+}
+
 .explanation {
   font-size: 0.8em;
   font-style: italic;

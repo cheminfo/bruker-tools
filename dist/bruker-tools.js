@@ -217,9 +217,13 @@ Icon.prototype.createTextFile = function createTextFile() {
     errors.push('Please select at least one experiment');
   }
 
+  if (!form.experiments) form.experiments = [];
+
   if (!Array.isArray(form.experiments)) {
     form.experiments = [form.experiments];
   }
+
+  if (form.composite) form.experiments.unshift(form.composite);
 
   if (errors.length > 0) {
     this.errosElement.innerHTML = errors.join('<br>');
@@ -258,6 +262,24 @@ Icon.prototype.save = function save() {
     type: 'text/plain;charset=utf-8'
   });
   FileSaver.saveAs(blob, `${this.form.user}_${this.form.code}_${this.form.batch}.txt`);
+
+  if ($('#confirm').length) {
+    var title;
+
+    if ($('#confirm span').length) {
+      title = $('#confirm span').text();
+    }
+
+    $('#confirm div').dialog({
+      title: title,
+      modal: true,
+      open: () => {
+        setTimeout(function () {
+          window.location.reload();
+        }, 5000);
+      }
+    });
+  }
 };
 
 module.exports = Icon;
@@ -639,17 +661,18 @@ function generateFile(requests) {
     textFile.push(`USER ${request.user}`);
     textFile.push(`HOLDER ${holder}`);
     if (!autoSubmit) textFile.push('NO_SUBMIT');
-    textFile.push(`NAME ${request.name}`);
-    textFile.push(`TITLE ${request.title || request.name}`);
+    textFile.push(`NAME ${request.name.replace(/ /g, '_')}`);
 
     for (var experiment of request.experiments) {
       textFile.push(`EXPNO ${experimentNumber++}`);
-      textFile.push(`SOLVENT ${experiment.solvent || request.solvent}`);
-      textFile.push(`EXPERIMENT ${experiment.experiment}`);
 
       if (experiment.priority) {
         textFile.push('PRIORITY');
       }
+
+      textFile.push(`SOLVENT ${experiment.solvent || request.solvent}`);
+      textFile.push(`EXPERIMENT ${experiment.experiment}`);
+      textFile.push(`TITLE ${request.title || request.name}`);
 
       if (experiment.parameters && experiment.parameters.length > 0) {
         var parameters = [];
@@ -662,6 +685,7 @@ function generateFile(requests) {
       }
     }
 
+    textFile.push('END');
     textFile.push('');
   }
 

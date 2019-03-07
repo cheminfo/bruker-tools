@@ -142,6 +142,22 @@ Icon.prototype.save = function save() {
     blob,
     `${this.form.user}_${this.form.code}_${this.form.batch}.txt`
   );
+
+  if ($('#confirm').length) {
+    var title;
+    if ($('#confirm span').length) {
+      title = $('#confirm span').text();
+    }
+    $('#confirm div').dialog({
+      title: title,
+      modal: true,
+      open: () => {
+        setTimeout(function () {
+          window.location.reload();
+        }, 5000);
+      }
+    });
+  }
 };
 
 module.exports = Icon;

@@ -1,8 +1,13 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
     <script language="javascript" src="../dist/bruker-tools.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
   </head>
   <body onLoad="document.getElementById('barcode').focus()">
     <h1><span id="instrument"></span></h1>
@@ -20,28 +25,16 @@
         </div>
         <div class="flex-2 big">
           User:
-          <input
-            type="text"
-            readonly
-            name="user"
-            id="user"
-            value="patiny"
-          /><br />
+          <input type="text" readonly name="user" id="user" value="" /><br />
           Code:
-          <input
-            type="text"
-            readonly
-            name="code"
-            id="code"
-            value="LP123"
-          /><br />
+          <input type="text" readonly name="code" id="code" value="" /><br />
           Batch:
-          <input type="text" readonly name="batch" id="batch" value="F1" />
+          <input type="text" readonly name="batch" id="batch" value="" />
         </div>
       </div>
       <hr />
       <div class="big">
-        Holder: <input type="number" name="holder" value="1" />
+        Holder: <input type="number" name="holder" value="" />
       </div>
       <hr />
       <div class="big">
@@ -83,6 +76,10 @@
         </div>
       </div>
     </form>
+
+    <div id="confirm">
+      <div>The sample was submitted successfully.</div>
+    </div>
   </body>
   <script>
     // general code
