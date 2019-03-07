@@ -1,0 +1,97 @@
+{
+  "instrument": "NMR1234",
+  "experiments": [
+    { "label": "refe_1Hzg", "description": "1H experiment", "priority": true },
+    { "label": "WATERSUP", "description": "1H with water supression" },
+    {
+      "label": "refe_13Ccpd",
+      "description": "13C experiment with decoupling, 256 scans, 235 ppm"
+    },
+    {
+      "label": "refe_13C-dept135",
+      "description": "13C DEPT135, CH3/CH positive, CH2 negative, 256 scans, 160 ppm"
+    },
+    {
+      "label": "refe_19Fcpd",
+      "description": "19F exp. comp. pulse decoupling"
+    },
+    { "label": "refe_19Fzg", "description": "19F exp. no decoupling" },
+    {
+      "label": "refe_31Pcpd",
+      "description": "31P exp. comp. pulse decoupling"
+    },
+    { "label": "refe_31Pzg", "description": "31P exp. no decoupling" },
+    { "label": "refe_11Bzg", "description": "11B no decoupling" },
+    { "label": "refe_15Nig", "description": "15N comp. pulse decoupling" },
+    { "label": "refe_15Ninept", "description": "15N inept transfer from 1H" },
+    {
+      "label": "refe_1Hzg_quanti",
+      "description": "Quantitative 1H experiment for slow relaxing molecules"
+    }
+  ],
+
+  "composites": [
+    {
+      "experiments": [],
+      "label": "COSYGPDFPHSW",
+      "description": "Gradient selected double quantum filtered phase sensitive COSY"
+    },
+    {
+      "experiments": ["refe_1Hzg"],
+      "label": "NOESYPHSW",
+      "description": "Phase sensitive NOESY"
+    },
+    {
+      "experiments": ["refe_1Hzg"],
+      "label": "ROESYPHSW",
+      "description": "Phase sensitive ROESY"
+    },
+    {
+      "experiments": ["refe_1Hzg"],
+      "label": "HSQCEDETGPSISP",
+      "description": "1H-13C multiplicity edited HSQC with gradient selection"
+    },
+    {
+      "experiments": ["refe_1Hzg"],
+      "label": "HMBCGP",
+      "description": "1H-13C HMBC with gradient selection"
+    },
+    {
+      "experiments": ["refe_1Hzg"],
+      "label": "Full Characterisation",
+      "description": "1H-13C HSQC HMBC COSY"
+    },
+    {
+      "experiments": [],
+      "label": "HSQCETGP_15N",
+      "description": "1H-15N HSQC with gradient selection"
+    },
+    {
+      "experiments": [],
+      "label": "HMBCGP_15N",
+      "description": "1H-15N HMBC with gradient selection"
+    }
+  ],
+
+  "solvents": [
+    { "label": "", "description": "", "selected": true },
+    { "label": "Acetic", "description": "acetic acid-d4" },
+    { "label": "Actenon", "description": "acetone-d6" },
+    { "label": "C6D6", "description": "benzene-d6" },
+    { "label": "CD2Cl2", "description": "dichloromethane-d2" },
+    { "label": "CDCl3", "description": "chloroform-d" },
+    { "label": "D2O", "description": "deuteriumoxide" },
+    { "label": "D2O_salt", "description": "deuteriumoxide with salt" },
+    { "label": "Dioxane", "description": "dioxane-d8" },
+    { "label": "DMF", "description": "N,N-dimethylformamide-d7" },
+    { "label": "DMSO", "description": "dimethylsulfoxide-d6" },
+    { "label": "EtOD", "description": "ethanol-d6" },
+    { "label": "H2O+D2O", "description": "90%H2O and 10% D2O" },
+    { "label": "H2O+D2O_salt", "description": "90%H2O and 10% D2O with salt" },
+    { "label": "MeOD", "description": "methanol-d4" },
+    { "label": "Pyr", "description": "pyridine-d5" },
+    { "label": "TFE", "description": "trifluroethanol-d3" },
+    { "label": "THF", "description": "terahydrofuran-d8" },
+    { "label": "Tol", "description": "toluene-d8" }
+  ]
+}

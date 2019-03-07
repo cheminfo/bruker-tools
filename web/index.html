@@ -83,8 +83,11 @@
   </body>
   <script>
     // general code
+
     async function init() {
-      let prefs = await (await fetch('./config.json')).json();
+      let spectro = getQueryVariable('spectro');
+      let config = instrument ? spectro + '.json' : 'config.json';
+      let prefs = await (await fetch(config)).json();
       icon = new BrukerTools.Icon(prefs, {
         startID: 'start',
         instrumentID: 'instrument',
@@ -105,6 +108,18 @@
       document.getElementById('user').value = parts[0];
       document.getElementById('code').value = parts[1];
       document.getElementById('batch').value = parts.slice(2).join('_');
+    }
+
+    function getQueryVariable(variable) {
+      var query = window.location.search.substring(1);
+      var vars = query.split('&');
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+          return decodeURIComponent(pair[1]);
+        }
+      }
+      console.log('Query variable %s not found', variable);
     }
   </script>
 </html>
