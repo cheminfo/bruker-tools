@@ -35,15 +35,15 @@ function generateFile(requests, options = {}) {
     textFile.push(`USER ${request.user}`);
     textFile.push(`HOLDER ${holder}`);
     if (!autoSubmit) textFile.push('NO_SUBMIT');
-    textFile.push(`NAME ${request.name}`);
-    textFile.push(`TITLE ${request.title || request.name}`);
+    textFile.push(`NAME ${request.name.replace(/ /g, '_')}`);
     for (var experiment of request.experiments) {
       textFile.push(`EXPNO ${experimentNumber++}`);
-      textFile.push(`SOLVENT ${experiment.solvent || request.solvent}`);
-      textFile.push(`EXPERIMENT ${experiment.experiment}`);
       if (experiment.priority) {
         textFile.push('PRIORITY');
       }
+      textFile.push(`SOLVENT ${experiment.solvent || request.solvent}`);
+      textFile.push(`EXPERIMENT ${experiment.experiment}`);
+      textFile.push(`TITLE ${request.title || request.name}`);
       if (experiment.parameters && experiment.parameters.length > 0) {
         var parameters = [];
         for (var parameter of experiment.parameters) {
@@ -52,6 +52,7 @@ function generateFile(requests, options = {}) {
         textFile.push(`PARAMETERS ${parameters.join(',')}`);
       }
     }
+    textFile.push('END');
     textFile.push('');
   }
   return textFile.join(eol);

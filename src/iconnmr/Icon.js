@@ -99,9 +99,11 @@ Icon.prototype.createTextFile = function createTextFile() {
   if (!form.experiments && !form.composite) {
     errors.push('Please select at least one experiment');
   }
+  if (!form.experiments) form.experiments = [];
   if (!Array.isArray(form.experiments)) {
     form.experiments = [form.experiments];
   }
+  if (form.composite) form.experiments.unshift(form.composite);
   if (errors.length > 0) {
     this.errosElement.innerHTML = errors.join('<br>');
     this.startElement.style.display = 'none';
