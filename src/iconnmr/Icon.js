@@ -120,7 +120,7 @@ Icon.prototype.createTextFile = function createTextFile() {
     solvent: form.solvent,
     holder: form.holder,
     user: form.user,
-    name: `${form.user} ${form.code} ${form.batch}`,
+    name: `${form.code} ${form.batch}`,
     experiments: form.experiments.map((value) => {
       return { experiment: value, priority };
     })
