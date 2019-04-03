@@ -125,7 +125,6 @@ Icon.prototype.createTextFile = function createTextFile() {
       return { experiment: value, priority };
     })
   };
-
   let text = generateFile([request], {
     deleteExistingHolder: true,
     autoSubmit: true
