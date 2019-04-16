@@ -53,6 +53,7 @@ Icon.prototype.createExperimentCheckboxes = function createExperimentCheckboxes(
 };
 
 Icon.prototype.start = function start() {
+  console.log('Saving document');
   this.save();
   console.log('DONE');
 };
@@ -142,9 +143,10 @@ Icon.prototype.save = function save() {
     blob,
     `${this.form.user}_${this.form.code}_${this.form.batch}.txt`
   );
-
+  console.log('We saved the data');
   if ($('#confirm').length) {
     var title;
+    console.log('Opening dialog');
     if ($('#confirm span').length) {
       title = $('#confirm span').text();
     }
@@ -153,6 +155,7 @@ Icon.prototype.save = function save() {
       modal: true,
       open: () => {
         setTimeout(function () {
+          console.log('Need to relaod');
           window.location.reload();
         }, 5000);
       }
